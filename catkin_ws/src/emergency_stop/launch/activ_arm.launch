@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="emergency_stop" type="activ_arm.sh" name="activ_arm">
+  </node>
+</launch>
