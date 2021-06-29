@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="niryo_control" type="activ_arm_ranger.sh" name="activ_arm_ranger">
+  </node>
+</launch>

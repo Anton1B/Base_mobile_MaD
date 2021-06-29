@@ -104,19 +104,33 @@ int main(int argc, char **argv)
 
 		ros::master::getNodes(V);
 		bool alive = false;
+		bool check_arm = false;
 		it = V.begin();
-		// On va regarder si le noeud /simple_navigation_goals est encore vivant, si ce n'est pas le cas alors le noeud battery_monitoring l'a tué afin de forcer le robot à retourner au dock
+		// On va regarder si le noeud /simple_navigation_goals est encore vivant, si ce n'est pas le cas alors un des autres nodes l'a tué afin de forcer le robot à retourner à s'arrêter
 		for (it = V.begin(); it < V.end(); it++)
 		{
 			if (*it == "/simple_navigation_goals")
 				alive = true;
+			if (*it == "/servir" || *it == "ranger")
+				check_arm = true;
 		}
 		// Fonctionnement provisoire car il faut forcément que le turtle soit éteint pour le recharger donc à changer pour le meuble
 		if (alive == false)
 		{
-			std::cout << "\n Le robot va retourner à sa station de rechargement car il manque de batterie, veuillez l'éteindre et le mettre en charge \n";
-			message.data = "Le robot va retourner à sa station de rechargement car il manque de batterie, veuillez l'éteindre et le mettre en charge";
-			client_pub.publish(message);
+			if (check_arm == true)
+			{
+				std::cout << "\nLa navigation s'est arretee car le bras est en cours d'utilisation\n";
+				message.data = "La navigation s'est arrêtée car le bras est en cours d'utilisation";
+				client_pub.publish(message);
+			}
+			else
+			{
+				std::cout << "\nLe node de navigation s'est arrete il est possible que le robot doive se recharger\n";
+				message.data = "La navigation s'est arrêtée, il est possible que le robot doive aller se recharger.";
+				client_pub.publish(message);
+			}
+			ros::spinOnce();
+			return 0;
 		}
 		//	ros::Duration(5).sleep();
 

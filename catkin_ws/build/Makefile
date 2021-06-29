@@ -751,6 +751,19 @@ mcp_can_rpi/fast:
 .PHONY : mcp_can_rpi/fast
 
 #=============================================================================
+# Target rules for targets named niryo_control
+
+# Build rule for target.
+niryo_control: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 niryo_control
+.PHONY : niryo_control
+
+# fast build rule for target.
+niryo_control/fast:
+	$(MAKE) -f niryo_control/CMakeFiles/niryo_control.dir/build.make niryo_control/CMakeFiles/niryo_control.dir/build
+.PHONY : niryo_control/fast
+
+#=============================================================================
 # Target rules for targets named geometry_msgs_generate_messages_py
 
 # Build rule for target.
@@ -4188,6 +4201,7 @@ help:
 	@echo "... emergency_stop_for_tests"
 	@echo "... emergency_activation_for_tests"
 	@echo "... mcp_can_rpi"
+	@echo "... niryo_control"
 	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... actionlib_generate_messages_py"
 	@echo "... actionlib_msgs_generate_messages_eus"

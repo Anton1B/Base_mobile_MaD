@@ -155,6 +155,14 @@
 /home/chaire/catkin_ws/build/niryo_one_ros/mcp_can_rpi/CMakeFiles/install/strip.dir
 /home/chaire/catkin_ws/build/niryo_one_ros/mcp_can_rpi/CMakeFiles/install/local.dir
 /home/chaire/catkin_ws/build/niryo_one_ros/mcp_can_rpi/CMakeFiles/test.dir
+/home/chaire/catkin_ws/build/niryo_control/CMakeFiles/list_install_components.dir
+/home/chaire/catkin_ws/build/niryo_control/CMakeFiles/install.dir
+/home/chaire/catkin_ws/build/niryo_control/CMakeFiles/rebuild_cache.dir
+/home/chaire/catkin_ws/build/niryo_control/CMakeFiles/edit_cache.dir
+/home/chaire/catkin_ws/build/niryo_control/CMakeFiles/niryo_control.dir
+/home/chaire/catkin_ws/build/niryo_control/CMakeFiles/install/strip.dir
+/home/chaire/catkin_ws/build/niryo_control/CMakeFiles/install/local.dir
+/home/chaire/catkin_ws/build/niryo_control/CMakeFiles/test.dir
 /home/chaire/catkin_ws/build/battery_monitoring/CMakeFiles/list_install_components.dir
 /home/chaire/catkin_ws/build/battery_monitoring/CMakeFiles/install.dir
 /home/chaire/catkin_ws/build/battery_monitoring/CMakeFiles/edit_cache.dir
