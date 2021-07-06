@@ -207,3 +207,6 @@ include_directories(
 
 add_executable(niryo_control src/niryo_control.cpp)
 target_link_libraries(niryo_control ${catkin_LIBRARIES})
+
+add_executable(niryo_control_v2 src/niryo_control_v2.cpp)
+target_link_libraries(niryo_control_v2 ${catkin_LIBRARIES})

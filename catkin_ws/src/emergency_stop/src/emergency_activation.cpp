@@ -93,13 +93,15 @@ int main(int argc, char **argv)
             if (alive == true)
             {
                 system("gnome-terminal -x rosrun simple_navigation_goals simple_navigation_goals");
+		system("gnome-terminal -x rosrun niryo_control niryo_control");
             }
 
             if (docking == true)
             {
                 system("gnome-terminal -x rosrun turtlebot3_automatic_parking_vision automatic_parking_vision");
+		system("gnome-terminal -x rosrun niryo_control niryo_control");
             }
-            //system("gnome-terminal -x roslaunch emergency_stop activ_arm.launch");
+            
             choice_listener.choix = -1;
             break;
         }

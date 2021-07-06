@@ -89,6 +89,16 @@ int main(int argc, char **argv)
 
 	int test = 0; //variable permettant de savoir savoir si le node de docking peut être lancé
 	int a_u = 0;  //Vérification de l'arrêt d'urgence
+	int test_case = 0;
+	bool test_rviz = true; //On vérifie si /rviz est actif
+	bool docking_first_check = false; //On vérifie si le node de docking est actif
+	bool docking_exist = false; //On vérifie si le docking a été lancé
+	bool alive = false;
+	bool check_arm = false;
+
+	// Création d'un vecteur qui va prendre la liste des noeuds en cours d'utilisation
+	std::vector<std::string> V;
+	std::vector<std::string>::iterator it;
 
 	while (true)
 	{
@@ -98,22 +108,56 @@ int main(int argc, char **argv)
 		}
 		test = 0;
 
-		// Création d'un vecteur qui va prendre la liste des noeuds en cours d'utilisation
-		std::vector<std::string> V;
-		std::vector<std::string>::iterator it;
+
 
 		ros::master::getNodes(V);
-		bool alive = false;
-		bool check_arm = false;
+		test_rviz = false;
+		alive = false;
+		check_arm = false;
+		
 		it = V.begin();
+
 		// On va regarder si le noeud /simple_navigation_goals est encore vivant, si ce n'est pas le cas alors un des autres nodes l'a tué afin de forcer le robot à retourner à s'arrêter
 		for (it = V.begin(); it < V.end(); it++)
 		{
 			if (*it == "/simple_navigation_goals")
 				alive = true;
-			if (*it == "/servir" || *it == "ranger")
+			if (*it == "/servir" || *it == "/ranger")
 				check_arm = true;
+			if (*it == "/rviz")
+				test_rviz = true;
+			if (*it == "/automatic_parking_vision")
+				docking_first_check = true;								
 		}
+
+		V.clear();
+
+
+		if (test_rviz == true && docking_first_check == true) //Si le docking a été lancé alors on pourra déclarer que le docking sera fini une fois que /rviz ne sera plus présent
+		{
+			docking_exist = true;
+		}
+
+		if (docking_first_check == true) //test
+		{
+			std::cout << "Test docking ok\n" ;	
+		}
+
+		if (test_rviz == false && docking_exist == true) //On vérifie si /rviz a disparu et si le docking a eu lieu pour relancer la navigation
+		{
+			// system("rosnode kill automatic_parking_vision");
+			// system("rosnode kill rviz");
+			system("rosnode kill ar_track_alvar");
+            system("rosnode kill joint_state_publisher_gui");
+            system("rosnode kill robot_state_publisher");
+            system("rosnode kill camera_rgb_optical_frame_to_cam");
+
+			docking_first_check = false;
+			docking_exist = false;
+			system("gnome-terminal -x roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=/home/chaire/chaire_mad.yaml");
+		}
+
+
 		// Fonctionnement provisoire car il faut forcément que le turtle soit éteint pour le recharger donc à changer pour le meuble
 		if (alive == false)
 		{
@@ -137,7 +181,7 @@ int main(int argc, char **argv)
 		ros::spinOnce();
 
 		id = choice_listener.choix;
-		int test_case = 0;
+		test_case = 0;
 		switch (id)
 		{
 		// Si on veut quitter :
@@ -152,13 +196,21 @@ int main(int argc, char **argv)
 
 			test_case = 1;
 			// Coordonnées du salon :
-			goal.target_pose.pose.position.x = 1.35772748295;
-			goal.target_pose.pose.position.y = 0.512409598971;
+			// goal.target_pose.pose.position.x = 0.797766892852;
+			// goal.target_pose.pose.position.y = 0.836321304049;
+			// goal.target_pose.pose.position.z = 0;
+			// goal.target_pose.pose.orientation.x = 0;
+			// goal.target_pose.pose.orientation.y = 0;
+			// goal.target_pose.pose.orientation.z = 0.91026232607;
+			// goal.target_pose.pose.orientation.w = 0.414032000862;
+
+			goal.target_pose.pose.position.x = 5.17235301551;
+			goal.target_pose.pose.position.y = 3.11603336181;
 			goal.target_pose.pose.position.z = 0;
 			goal.target_pose.pose.orientation.x = 0;
 			goal.target_pose.pose.orientation.y = 0;
-			goal.target_pose.pose.orientation.z = 0.996273150458;
-			goal.target_pose.pose.orientation.w = 0.0862543313475;
+			goal.target_pose.pose.orientation.z = -0.846030728865;
+			goal.target_pose.pose.orientation.w = 0.533134134919;
 
 			ac.sendGoal(goal, &doneCb); //Envoi de la commande et attente de la fin de la navigation pour déclencher donecb
 			std::cout << " \n Objectif envoye\n";
@@ -214,13 +266,21 @@ int main(int argc, char **argv)
 
 			test_case = 2;
 			// Coordonnées de la chambre :
-			goal.target_pose.pose.position.x = 0.21694349891;
-			goal.target_pose.pose.position.y = -0.266864040157;
+			// goal.target_pose.pose.position.x = 1.39836465437;
+			// goal.target_pose.pose.position.y = -0.0866317770615;
+			// goal.target_pose.pose.position.z = 0;
+			// goal.target_pose.pose.orientation.x = 0;
+			// goal.target_pose.pose.orientation.y = 0;
+			// goal.target_pose.pose.orientation.z = 0.474518836348;
+			// goal.target_pose.pose.orientation.w = 0.880245348724;
+
+			goal.target_pose.pose.position.x = 7.38073386966;
+			goal.target_pose.pose.position.y = 2.08008514513;
 			goal.target_pose.pose.position.z = 0;
 			goal.target_pose.pose.orientation.x = 0;
 			goal.target_pose.pose.orientation.y = 0;
-			goal.target_pose.pose.orientation.z = 0.662989981088;
-			goal.target_pose.pose.orientation.w = 0.748628268887;
+			goal.target_pose.pose.orientation.z = -0.98944214492;
+			goal.target_pose.pose.orientation.w = 0.144928402518;
 
 			ac.sendGoal(goal, &doneCb);
 			std::cout << " \n Objectif envoye\n";
@@ -275,13 +335,21 @@ int main(int argc, char **argv)
 
 			test_case = 3;
 			// Position proche du dock
-			goal.target_pose.pose.position.x = 0.209177836221;
-			goal.target_pose.pose.position.y = 0.0;
+			// goal.target_pose.pose.position.x = -0.638422714931;
+			// goal.target_pose.pose.position.y = -0.196174353078;
+			// goal.target_pose.pose.position.z = 0;
+			// goal.target_pose.pose.orientation.x = 0;
+			// goal.target_pose.pose.orientation.y = 0;
+			// goal.target_pose.pose.orientation.z = 0.999759637288;
+			// goal.target_pose.pose.orientation.w = 0.0219241339678;
+
+			goal.target_pose.pose.position.x = 5.56863107588;
+			goal.target_pose.pose.position.y = 4.154874398;
 			goal.target_pose.pose.position.z = 0;
 			goal.target_pose.pose.orientation.x = 0;
 			goal.target_pose.pose.orientation.y = 0;
-			goal.target_pose.pose.orientation.z = 0.988473330604;
-			goal.target_pose.pose.orientation.w = 0.151395094654;
+			goal.target_pose.pose.orientation.z = 0.993903984118;
+			goal.target_pose.pose.orientation.w = 0.110249128588;
 
 			ac.sendGoal(goal, &doneCb);
 			std::cout << " \n Objectif envoye\n";
@@ -323,15 +391,15 @@ int main(int argc, char **argv)
 					test = 1;
 
 					//Le robot va ensuite tourner sur lui-même jusqu'à voir le code de son dock, puis va rejoindre le dock :
-					system("roslaunch turtlebot3_automatic_parking_vision turtlebot3_automatic_parking_vision.launch");
+					system("gnome-terminal -x roslaunch turtlebot3_automatic_parking_vision turtlebot3_automatic_parking_vision.launch");
 					std::cout << " \n Le robot est à son dock\n";
 					message.data = "Le robot est à son dock";
 					client_pub.publish(message);
 					choice_listener.choix = -1;
-					break;
 				}
 				ros::Duration(0.5).sleep();
 			}
+			break;
 
 			//-------------------------------------------------------------------------------------------------------------------------------
 			// CUISINE
@@ -342,13 +410,21 @@ int main(int argc, char **argv)
 			test_case = 4;
 
 			// Coordonnées du plan de travail :
-			goal.target_pose.pose.position.x = 0.21694349891;
-			goal.target_pose.pose.position.y = -0.266864040157;
+			// goal.target_pose.pose.position.x = 0.561170537189;
+			// goal.target_pose.pose.position.y = -0.660492907653;
+			// goal.target_pose.pose.position.z = 0;
+			// goal.target_pose.pose.orientation.x = 0;
+			// goal.target_pose.pose.orientation.y = 0;
+			// goal.target_pose.pose.orientation.z = -0.693860522948;
+			// goal.target_pose.pose.orientation.w = 0.720109418557;
+
+			goal.target_pose.pose.position.x = 5.8910502669;
+			goal.target_pose.pose.position.y = 1.57074158932;
 			goal.target_pose.pose.position.z = 0;
 			goal.target_pose.pose.orientation.x = 0;
 			goal.target_pose.pose.orientation.y = 0;
-			goal.target_pose.pose.orientation.z = 0.662989981088;
-			goal.target_pose.pose.orientation.w = 0.748628268887;
+			goal.target_pose.pose.orientation.z = -0.807062046261;
+			goal.target_pose.pose.orientation.w = 0.590466640451;
 
 			ac.sendGoal(goal, &doneCb);
 			std::cout << " \n Objectif envoye\n";
@@ -393,20 +469,21 @@ int main(int argc, char **argv)
 				}
 				ros::Duration(0.5).sleep();
 			}
+			choice_listener.choix = -1;
 			break;
 
 		case 5:
 
 			test_case = 5;
 
-			// Coordonnées du plan de la table :
-			goal.target_pose.pose.position.x = 0.21694349891;
-			goal.target_pose.pose.position.y = -0.266864040157;
+			// Coordonnées de la table :
+			goal.target_pose.pose.position.x = -0.11775260212;
+			goal.target_pose.pose.position.y = 0.355234211892;
 			goal.target_pose.pose.position.z = 0;
 			goal.target_pose.pose.orientation.x = 0;
 			goal.target_pose.pose.orientation.y = 0;
-			goal.target_pose.pose.orientation.z = 0.662989981088;
-			goal.target_pose.pose.orientation.w = 0.748628268887;
+			goal.target_pose.pose.orientation.z = 0.762233304106;
+			goal.target_pose.pose.orientation.w = 0.647302394644;
 
 			ac.sendGoal(goal, &doneCb);
 			std::cout << " \n Objectif envoye\n";
@@ -451,6 +528,7 @@ int main(int argc, char **argv)
 				}
 				ros::Duration(0.5).sleep();
 			}
+			choice_listener.choix = -1;
 			break;
 
 		case 6:
@@ -458,13 +536,13 @@ int main(int argc, char **argv)
 			test_case = 6;
 
 			// Coordonnées du du frigidaire :
-			goal.target_pose.pose.position.x = 0.21694349891;
-			goal.target_pose.pose.position.y = -0.266864040157;
+			goal.target_pose.pose.position.x = -0.796167706192;
+			goal.target_pose.pose.position.y = -0.736104374785;
 			goal.target_pose.pose.position.z = 0;
 			goal.target_pose.pose.orientation.x = 0;
 			goal.target_pose.pose.orientation.y = 0;
-			goal.target_pose.pose.orientation.z = 0.662989981088;
-			goal.target_pose.pose.orientation.w = 0.748628268887;
+			goal.target_pose.pose.orientation.z = -0.973813470984;
+			goal.target_pose.pose.orientation.w =  0.227348463223;
 
 			ac.sendGoal(goal, &doneCb);
 			std::cout << " \n Objectif envoye\n";
@@ -509,6 +587,7 @@ int main(int argc, char **argv)
 				}
 				ros::Duration(0.5).sleep();
 			}
+			choice_listener.choix = -1;
 			break;
 
 			//-------------------------------------------------------------------------------------------------------------------------------
@@ -536,7 +615,7 @@ int main(int argc, char **argv)
 			client_pub.publish(message);
 			choice_listener.choix = -1;
 			a_u = 1;
-			system("rosrun emergency_stop emergency_stop");
+			system("gnome-terminal -x rosrun emergency_stop emergency_stop");
 			break;
 		}
 

@@ -56,28 +56,6 @@ CMAKE_BINARY_DIR = /home/chaire/catkin_ws/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -100,6 +78,39 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -121,17 +132,6 @@ install/local: preinstall
 install/local/fast: install/local
 
 .PHONY : install/local/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -180,6 +180,21 @@ niryo_control/fast:
 	cd /home/chaire/catkin_ws/build && $(MAKE) -f niryo_control/CMakeFiles/niryo_control.dir/build.make niryo_control/CMakeFiles/niryo_control.dir/build
 .PHONY : niryo_control/fast
 
+# Convenience name for target.
+niryo_control/CMakeFiles/niryo_control_v2.dir/rule:
+	cd /home/chaire/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 niryo_control/CMakeFiles/niryo_control_v2.dir/rule
+.PHONY : niryo_control/CMakeFiles/niryo_control_v2.dir/rule
+
+# Convenience name for target.
+niryo_control_v2: niryo_control/CMakeFiles/niryo_control_v2.dir/rule
+
+.PHONY : niryo_control_v2
+
+# fast build rule for target.
+niryo_control_v2/fast:
+	cd /home/chaire/catkin_ws/build && $(MAKE) -f niryo_control/CMakeFiles/niryo_control_v2.dir/build.make niryo_control/CMakeFiles/niryo_control_v2.dir/build
+.PHONY : niryo_control_v2/fast
+
 src/niryo_control.o: src/niryo_control.cpp.o
 
 .PHONY : src/niryo_control.o
@@ -207,23 +222,54 @@ src/niryo_control.cpp.s:
 	cd /home/chaire/catkin_ws/build && $(MAKE) -f niryo_control/CMakeFiles/niryo_control.dir/build.make niryo_control/CMakeFiles/niryo_control.dir/src/niryo_control.cpp.s
 .PHONY : src/niryo_control.cpp.s
 
+src/niryo_control_v2.o: src/niryo_control_v2.cpp.o
+
+.PHONY : src/niryo_control_v2.o
+
+# target to build an object file
+src/niryo_control_v2.cpp.o:
+	cd /home/chaire/catkin_ws/build && $(MAKE) -f niryo_control/CMakeFiles/niryo_control_v2.dir/build.make niryo_control/CMakeFiles/niryo_control_v2.dir/src/niryo_control_v2.cpp.o
+.PHONY : src/niryo_control_v2.cpp.o
+
+src/niryo_control_v2.i: src/niryo_control_v2.cpp.i
+
+.PHONY : src/niryo_control_v2.i
+
+# target to preprocess a source file
+src/niryo_control_v2.cpp.i:
+	cd /home/chaire/catkin_ws/build && $(MAKE) -f niryo_control/CMakeFiles/niryo_control_v2.dir/build.make niryo_control/CMakeFiles/niryo_control_v2.dir/src/niryo_control_v2.cpp.i
+.PHONY : src/niryo_control_v2.cpp.i
+
+src/niryo_control_v2.s: src/niryo_control_v2.cpp.s
+
+.PHONY : src/niryo_control_v2.s
+
+# target to generate assembly for a file
+src/niryo_control_v2.cpp.s:
+	cd /home/chaire/catkin_ws/build && $(MAKE) -f niryo_control/CMakeFiles/niryo_control_v2.dir/build.make niryo_control/CMakeFiles/niryo_control_v2.dir/src/niryo_control_v2.cpp.s
+.PHONY : src/niryo_control_v2.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... list_install_components"
-	@echo "... install"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... test"
 	@echo "... niryo_control"
+	@echo "... list_install_components"
+	@echo "... install"
+	@echo "... niryo_control_v2"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... test"
 	@echo "... src/niryo_control.o"
 	@echo "... src/niryo_control.i"
 	@echo "... src/niryo_control.s"
+	@echo "... src/niryo_control_v2.o"
+	@echo "... src/niryo_control_v2.i"
+	@echo "... src/niryo_control_v2.s"
 .PHONY : help
 
 

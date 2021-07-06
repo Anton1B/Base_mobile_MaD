@@ -20,12 +20,14 @@
 # Authors: Leon Jung
 
 import rospy
+import os #Ajout pour system()
 import numpy as np
 import tf
 from enum import Enum
 from nav_msgs.msg import Odometry
 from ar_track_alvar_msgs.msg import AlvarMarkers
 from geometry_msgs.msg import Twist
+from std_msgs.msg import Int32 #Pour le flag
 from tf.transformations import euler_from_quaternion, quaternion_from_euler
 import math
 import time
@@ -33,6 +35,18 @@ import sys
 
 MARKER_ID_DETECTION = 17
 
+#Signale au node de controle que l'action est terminee et publie le message de fin
+#def talker():
+#    pub = rospy.Publisher('flag_docking', Int32, queue_size=10)
+#    rate = rospy.Rate(10) # 10hz
+#    count = 0
+#    fin_docking = 1
+#    while not rospy.is_shutdown():
+#	if count>10:
+#		break
+#        pub.publish(fin_docking)
+#        count = count + 1
+#        rate.sleep()
 
 class AutomaticParkingVision():
     def __init__(self):
@@ -142,19 +156,30 @@ class AutomaticParkingVision():
             self.is_sequence_finished = self.fnSeqParking()
 
             if self.is_sequence_finished == True:
-                print "Finished 4"
+                print ("Finished 4")
                 desired_angle_turn = math.atan2(
-                    self.marker_2d_pose_y - 0, self.marker_2d_pose_x - 0)  # ATTENTION
+                    self.marker_2d_pose_y - 0, self.marker_2d_pose_x - 0)  # ATTENTION !!!!!!!!!!!!!!!!!!!! FIN DE DOCKING placement en face du marker
                 self.fnGoDocking(desired_angle_turn)
                 rospy.sleep(2)
                 print(self.initial_marker_pose_theta)
                 self.current_parking_sequence = self.ParkingSequence.stop.value
                 self.is_sequence_finished = False
+		self.fnPostDocking()
+		rospy.sleep(2)
 
         elif self.current_parking_sequence == self.ParkingSequence.stop.value:
             self.fnStop()
-            print "Finished 5"
+            print ("Finished 5")
             self.current_parking_sequence = self.ParkingSequence.finished.value
+
+            #os.system('rosnode kill ar_track_alvar')
+            os.system('rosnode kill rviz')
+            #os.system('rosnode kill joint_state_publisher_gui')
+            #os.system('rosnode kill robot_state_publisher')
+            #os.system('rosnode kill camera_rgb_optical_frame_to_cam')
+
+            sys.exit()
+
             rospy.on_shutdown(self.fnShutDown)
 
     def fnSeqSearchingGoal(self):
@@ -294,7 +319,7 @@ class AutomaticParkingVision():
         twist.angular.z = 0
         self.pub_cmd_vel.publish(twist)
 
-    def fnGoDocking(self, theta):
+    def fnGoDocking(self, theta): #Derniere avancee avant fin du docking
         Kp = 1.2
         angular_z = Kp * theta
 
@@ -306,6 +331,18 @@ class AutomaticParkingVision():
         twist.angular.y = 0
         twist.angular.z = angular_z
         self.pub_cmd_vel.publish(twist)
+
+    def fnPostDocking(self): #Recul apres le docking
+
+        twist = Twist()
+        twist.linear.x = -0.12
+        twist.linear.y = 0
+        twist.linear.z = 0
+        twist.angular.x = 0
+        twist.angular.y = 0
+        twist.angular.z = 0
+        self.pub_cmd_vel.publish(twist)
+
 
     def fnTrackMarker(self, theta):
         Kp = 1.2
@@ -377,4 +414,6 @@ if __name__ == '__main__':
     rospy.init_node('automatic_parking_vision')
     node = AutomaticParkingVision()
     node.main()
-    sys.exit(0)
+    #talker() #Publication du message de fin
+    print("Fin du programme")
+    sys.exit()

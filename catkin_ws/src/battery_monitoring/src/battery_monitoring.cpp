@@ -82,13 +82,13 @@ int main(int argc, char **argv)
 			system("rosnode kill /simple_navigation_goals");
 			
 			// Position proche du dock
-			goal.target_pose.pose.position.x = -0.195580958292;
-				goal.target_pose.pose.position.y = 0;
+			goal.target_pose.pose.position.x = -0.429485903875;
+				goal.target_pose.pose.position.y = -0.187559953614;
 				goal.target_pose.pose.position.z = 0;
 				goal.target_pose.pose.orientation.x = 0;
 			  	goal.target_pose.pose.orientation.y = 0;
-			  	goal.target_pose.pose.orientation.z = -0.766475793024;
-			  	goal.target_pose.pose.orientation.w = 0.642273196318;
+			  	goal.target_pose.pose.orientation.z = 0.999156167315;
+			  	goal.target_pose.pose.orientation.w = 0.0410725372552;
 	
 
 			ac.sendGoal(goal);

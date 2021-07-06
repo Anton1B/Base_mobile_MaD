@@ -3,7 +3,6 @@
 #include "std_msgs/String.h"
 #include <boost/container/string.hpp>
 
-
 // Définition de la classe Niryo_Listener qui va servir à récupérer les informations envoyée depuis le Niryo
 class Niryo_Listener
 {
@@ -32,7 +31,19 @@ void Choice_Listener::callback2(const std_msgs::Int32ConstPtr &choice)
 	choix = choice->data;
 };
 
+// Définition de la classe Docking_Listener qui va servir à récupérer l'information de fin de docking
+// class Docking_Listener
+// {
+// public:
+// 	int drapeau;
 
+// 	void callback3(const std_msgs::Int32ConstPtr &flag_d);
+// };
+
+// void Docking_Listener::callback3(const std_msgs::Int32ConstPtr &flag_d)
+// {
+// 	drapeau = flag_d->data;
+// };
 
 int main(int argc, char **argv)
 {
@@ -44,6 +55,7 @@ int main(int argc, char **argv)
 
 	Choice_Listener choice_listener;
 	Niryo_Listener niryo_listener;
+	//Docking_Listener docking_listener;
 
 	// On indique que l'on va lire les infos du topic /niryo_response (Signale au node si l'action est terminée ou non)
 	ros::Subscriber sub1 = nh.subscribe<std_msgs::Int32>("reponse", 1, &Niryo_Listener::callback, &niryo_listener);
@@ -51,13 +63,14 @@ int main(int argc, char **argv)
 	// On indique que l'on va lire les infos du topic /choix (information en provenance des boutons de l'interface web)
 	ros::Subscriber sub2 = nh.subscribe<std_msgs::Int32>("choix", 1, &Choice_Listener::callback2, &choice_listener);
 
+	// On indique que l'on va lire les infos du topic /flag_docking (information en provenance du node de docking)
+	// ros::Subscriber sub_docking = nh.subscribe<std_msgs::Int32>("flag_docking", 1, &Docking_Listener::callback3, &docking_listener);
+
 	// On indique que l'on va publier des messages sur le topic /messages_niryo (Publication des messages d'état sur l'interface web)
 	ros::Publisher client_pub = nh.advertise<std_msgs::String>("messages_niryo", 1);
 
 	// On indique que l'on va publier des messages sur le topic /interactions_niryo (Pour mettre en pause et interrompre l'action)
 	ros::Publisher niryo_pub = nh.advertise<std_msgs::Int32>("interactions_niryo", 1);
-
-	
 
 	std_msgs::String message;
 	std_msgs::Int32 ask_niryo;
@@ -65,15 +78,16 @@ int main(int argc, char **argv)
 	int id;
 	choice_listener.choix = -1;
 	niryo_listener.reponse = 0;
+	//docking_listener.drapeau = 0;
 
-
-	int test = 0; //variable permettant de savoir savoir si le node de docking peut être lancé
-	int flag = 0;  //Vérification de l'arrêt ou de la pause
-	int test_case = 0; //Vérification de l'étape du switch en cours
+	int test = 0;		//variable permettant de savoir savoir si le node de docking peut être lancé
+	int flag = 0;		//Vérification de l'arrêt ou de la pause
+	int test_case = 0;	//Vérification de l'étape du switch en cours
 	ask_niryo.data = 0; //Variable permettant de lancer la mise en pause
 
 	while (true)
 	{
+
 		commande = "\0";
 		niryo_listener.reponse = -1;
 		test_case = 0;
@@ -81,7 +95,7 @@ int main(int argc, char **argv)
 
 		ros::spinOnce();
 
-		id = choice_listener.choix-9;
+		id = choice_listener.choix - 9;
 
 		switch (id)
 		{
@@ -89,18 +103,15 @@ int main(int argc, char **argv)
 		case 0:
 			return 0;
 
-		//-------------------------------------------------------------------------------------------------------------------------------
-		// SERVIR 
-		//-------------------------------------------------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------------------------------------------------
+			// SERVIR
+			//-------------------------------------------------------------------------------------------------------------------------------
 
 		case 1:
 			system("rosnode kill simple_navigation_goals");
 
 			test_case = 10;
 
-			//commande = "gnome-terminal -x sshpass -p \'robotics\' ssh -t niryo@192.168.1.130  \"source /opt/ros/kinetic/setup.bash; source ~/catkin_ws/devel/setup.bash; export ROS_MASTER_URI=http://192.168.1.122:11311; export ROS_HOSTNAME=192.168.1.130; python catkin_ws/src/niryo_one_python_api/examples/servir.py;\" " ;
-			//system(commande.c_str()); //Envoi de la commande
-			
 			system("gnome-terminal -x roslaunch niryo_control activ_arm_servir.launch");
 
 			std::cout << " \n Objectif envoye\n";
@@ -110,7 +121,7 @@ int main(int argc, char **argv)
 			while (test == 0)
 			{
 				//std::cout << niryo_listener.reponse << std::endl ;
-				ros::spinOnce(); //On réactualise choice_listener
+				ros::spinOnce();						//On réactualise choice_listener
 				if (choice_listener.choix != test_case) // Si la commande est différente de la commande initiale (ie on a cliqué sur un autre bouton)
 				{
 
@@ -119,25 +130,24 @@ int main(int argc, char **argv)
 						ask_niryo.data = 2;
 					}
 
-					else 
+					else
 					{
 						ask_niryo.data = 0;
 					}
-					niryo_pub.publish(ask_niryo);  //On signale au bras qu'on veut interrompre l'action
+					niryo_pub.publish(ask_niryo); //On signale au bras qu'on veut interrompre l'action
 
 					std::cout << " \n Arret de la commande en cours\n";
 					std::cout << "\n Le robot n'a pas atteint son objectif\n";
 					message.data = "Arrêt de la commande en cours, le bras n'a pas atteint son objectif";
 					client_pub.publish(message);
-					
+
 					test = 1;
 					flag = 1;
-
 				}
 
 				if (niryo_listener.reponse == 1) //Si l'action est terminée
 				{
-					//flag_global = 1;
+					//docking_listener.drapeau = 0;
 					std::cout << " \n Fin de l'action\n";
 					std::cout << "\n Le bras a depose l'objet sur la zone de depot\n";
 					message.data = "Le bras a déposé l'objet sur la zone de dépot\n";
@@ -150,7 +160,7 @@ int main(int argc, char **argv)
 				}
 				ros::Duration(0.5).sleep();
 			}
-			if (flag==1)
+			if (flag == 1)
 			{
 				flag = 0;
 				break;
@@ -159,17 +169,17 @@ int main(int argc, char **argv)
 			ros::spinOnce();
 			break;
 
-		//-------------------------------------------------------------------------------------------------------------------------------
-		// PAUSE
-		//-------------------------------------------------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------------------------------------------------
+			// PAUSE
+			//-------------------------------------------------------------------------------------------------------------------------------
 
 		case 2:
 
 			test_case = 11;
 
-			ask_niryo.data = 0; //Demande de pause 
+			ask_niryo.data = 0; //Demande de pause
 
-			niryo_pub.publish(ask_niryo); //On signale au bras qu'on veut interrompre l'action 
+			niryo_pub.publish(ask_niryo); //On signale au bras qu'on veut interrompre l'action
 			ros::spinOnce();
 
 			std::cout << " \n Objectif envoye\n";
@@ -181,9 +191,9 @@ int main(int argc, char **argv)
 
 			break;
 
-		//-------------------------------------------------------------------------------------------------------------------------------
-		// MARCHE
-		//-------------------------------------------------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------------------------------------------------
+			// MARCHE
+			//-------------------------------------------------------------------------------------------------------------------------------
 
 		case 3:
 
@@ -204,10 +214,9 @@ int main(int argc, char **argv)
 
 			break;
 
-		//-------------------------------------------------------------------------------------------------------------------------------
-		// RANGER
-		//-------------------------------------------------------------------------------------------------------------------------------
-		
+			//-------------------------------------------------------------------------------------------------------------------------------
+			// RANGER
+			//-------------------------------------------------------------------------------------------------------------------------------
 
 		case 4:
 
@@ -226,25 +235,25 @@ int main(int argc, char **argv)
 
 			while (test == 0)
 			{
-				ros::spinOnce(); //On réactualise choice_listener
+				ros::spinOnce();						//On réactualise choice_listener
 				if (choice_listener.choix != test_case) // Si la commande est différente de la commande initiale (ie on a cliqué sur un autre bouton)
 				{
 					std::cout << " \n Arret de la commande en cours\n";
 					std::cout << "\n Le robot n'a pas atteint son objectif\n";
 					message.data = "Arrêt de la commande en cours, le bras n'a pas atteint son objectif";
 					client_pub.publish(message);
-					
+
 					if (test_case == 14)
 					{
 						ask_niryo.data = 2;
 					}
 
-					else 
+					else
 					{
 						ask_niryo.data = 0;
 					}
-					
-					niryo_pub.publish(ask_niryo);  //On signale au bras qu'on veut interrompre l'action
+
+					niryo_pub.publish(ask_niryo); //On signale au bras qu'on veut interrompre l'action
 
 					test = 1;
 					flag = 1;
@@ -252,7 +261,7 @@ int main(int argc, char **argv)
 
 				if (niryo_listener.reponse == 1) //Si l'action est terminée
 				{
-					//flag_global = 1;
+					//docking_listener.drapeau = 0;
 					std::cout << " \n Fin de l'action'\n";
 					std::cout << "\n Le bras a range l'objet dans le meuble\n";
 					message.data = "Le bras a rangé l'objet dans le meuble\n";
@@ -267,7 +276,7 @@ int main(int argc, char **argv)
 				ros::Duration(0.5).sleep();
 			}
 
-			if (flag==1)
+			if (flag == 1)
 			{
 				flag = 0;
 				break;
@@ -276,10 +285,10 @@ int main(int argc, char **argv)
 			ros::spinOnce();
 			break;
 
-		//-------------------------------------------------------------------------------------------------------------------------------
-		// ARRET DE L'ACTION
-		//-------------------------------------------------------------------------------------------------------------------------------
-	
+			//-------------------------------------------------------------------------------------------------------------------------------
+			// ARRET DE L'ACTION
+			//-------------------------------------------------------------------------------------------------------------------------------
+
 		case 5:
 
 			test_case = 14;
@@ -298,7 +307,6 @@ int main(int argc, char **argv)
 			system("gnome-terminal -x rosrun simple_navigation_goals simple_navigation_goals");
 
 			break;
-
 		}
 
 		loop_rate.sleep();

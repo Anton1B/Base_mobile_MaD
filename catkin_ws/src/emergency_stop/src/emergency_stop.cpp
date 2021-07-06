@@ -82,6 +82,6 @@ int main(int argc, char **argv)
     }
     ros::shutdown();
 
-    system("rosrun emergency_stop_for_tests emergency_activation");
+    system("rosrun emergency_stop emergency_activation");
     return 0;
 }

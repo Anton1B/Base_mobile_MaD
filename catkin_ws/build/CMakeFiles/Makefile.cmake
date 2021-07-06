@@ -661,6 +661,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "emergency_stop_for_tests/CMakeFiles/emergency_activation_for_tests.dir/DependInfo.cmake"
   "niryo_one_ros/mcp_can_rpi/CMakeFiles/mcp_can_rpi.dir/DependInfo.cmake"
   "niryo_control/CMakeFiles/niryo_control.dir/DependInfo.cmake"
+  "niryo_control/CMakeFiles/niryo_control_v2.dir/DependInfo.cmake"
   "battery_monitoring/CMakeFiles/geometry_msgs_generate_messages_py.dir/DependInfo.cmake"
   "battery_monitoring/CMakeFiles/actionlib_generate_messages_py.dir/DependInfo.cmake"
   "battery_monitoring/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/DependInfo.cmake"
