@@ -1,0 +1,8 @@
+prefix=/home/chaire/catkin_ws/install
+
+Name: niryo_one_tester
+Description: Description of niryo_one_tester
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
