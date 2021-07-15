@@ -1,8 +1,0 @@
-prefix=/home/chaire/catkin_ws/devel
-
-Name: emergency_stop_for_tests
-Description: Description of emergency_stop_for_tests
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

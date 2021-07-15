@@ -1,8 +1,0 @@
-prefix=/home/chaire/catkin_ws/install
-
-Name: niryo_one_msgs
-Description: Description of niryo_one_msgs
-Version: 2.3.3
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib 
-Requires: roscpp rospy std_msgs message_runtime actionlib_msgs geometry_msgs moveit_msgs

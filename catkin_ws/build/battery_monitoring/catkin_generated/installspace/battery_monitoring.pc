@@ -1,8 +1,0 @@
-prefix=/home/chaire/catkin_ws/install
-
-Name: battery_monitoring
-Description: Description of battery_monitoring
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,4 +1,0 @@
-<launch>
-  <node pkg="niryo_control" type="actions_et_corr_niryo.sh" name="actions_et_corr_niryo">
-  </node>
-</launch>
