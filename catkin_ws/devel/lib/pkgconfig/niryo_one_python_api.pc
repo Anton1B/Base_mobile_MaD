@@ -1,8 +1,0 @@
-prefix=/home/chaire/catkin_ws/devel
-
-Name: niryo_one_python_api
-Description: Description of niryo_one_python_api
-Version: 2.3.3
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
