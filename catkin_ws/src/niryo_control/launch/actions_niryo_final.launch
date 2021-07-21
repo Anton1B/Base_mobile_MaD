@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="niryo_control" type="actions_niryo_final.sh" name="actions_niryo_final">
+  </node>
+</launch>
