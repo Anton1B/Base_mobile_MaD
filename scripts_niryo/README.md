@@ -6,8 +6,8 @@ Contenu du dossier "example" disponible dans sftp://niryo@192.168.1.130/home/nir
 
 Fonction de chaque programme :
 
--actions_niryo.py : première version aboutie du fonctionnement du niryo avec des fonctions pour chaque action. Il manque l'observation
-- actions_niryo_final.py : dernière version du fonctionnement du nyrio avec des fonctions pour chaque action et pour l'observation. C'est ce programme qui est lancé lors de l'activation du robot
+- actions_niryo.py : première version aboutie du fonctionnement du niryo avec des fonctions pour chaque action. Il manque l'observation.
+- actions_niryo_final.py : dernière version du fonctionnement du nyrio avec des fonctions pour chaque action et pour l'observation. C'est ce programme qui est lancé lors de l'activation du robot.
 - activation.py : programme utilisé lorsque la calibration du robot était lancée avant le programme avec les actions
 - markers_detection.py : programme issu du package niryo_one_camera utilisé pour ses fonctions permettant d'estimer la position des marqueurs du workspace
 - math_function.py : programme issu du package niryo_one_camera utilisé pour ses fonctions de calculs
