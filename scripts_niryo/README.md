@@ -5,6 +5,7 @@ Description :
 Contenu du dossier "example" disponible dans sftp://niryo@192.168.1.130/home/niryo/catkin_ws/src/niryo_one_python_api/examples
 
 Fonction de chaque programme :
+
 -actions_niryo.py : première version aboutie du fonctionnement du niryo avec des fonctions pour chaque action. Il manque l'observation
 - actions_niryo_final.py : dernière version du fonctionnement du nyrio avec des fonctions pour chaque action et pour l'observation. C'est ce programme qui est lancé lors de l'activation du robot
 - activation.py : programme utilisé lorsque la calibration du robot était lancée avant le programme avec les actions
