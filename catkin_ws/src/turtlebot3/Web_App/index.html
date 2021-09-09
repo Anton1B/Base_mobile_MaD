@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="fr+en">
+
+<head>
+    <title>Application Web TurtleBot3</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <body class="bg" style="background-color:#ffffff">
+
+        <div id='bandeau'>
+            <!-- BANDEAU -->
+            <nav class="navbar navbar-dark" style="background-color:#62cdff">
+                <b>
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/logo_MaD_light.png"
+                        width="80" height="50" class="d-inline-block" alt="">
+                    &nbsp TÉLÉCOMMANDE
+                </b>
+            </nav>
+        </div>
+
+        <div id='bandeau_joystick'>
+            <!-- Image and text -->
+            <nav class="navbar navbar-dark" style="background-color:#7bcae2">
+                <b>
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/logo_MaD_light.png"
+                        width="80" height="50" class="d-inline-block" alt="">
+                    &nbsp TÉLÉCOMMANDE
+                </b>
+            </nav>
+        </div>
+
+        <div id='main1'>
+
+            <!--Battery Status-->
+            <div class="container">
+                <br>
+                <h5 style="color:#888888"><b>Niveau de Batterie :</b></h5>
+                <div class="progress">
+
+                    <div id="battery_status" class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar" style="width:50%; background-color:#62cdff" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                    50%</div>
+
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <br>
+                    <button type="button" onclick="Urgence()" class="btn btn-outline-danger" id="urgence-btn"><b>Arrêt
+                            d'urgence</b></button>
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/warning.png"
+                        width="50" height="50" class="d-inline-block" alt="">
+                    <button type="button" onclick="Reactivation()" class="btn btn-outline-success"
+                        id="reactivation-btn"><b>Réactivation</b></button>
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <!-- Interligne -->
+            <hr style="height:2px ;border-width:0; margin-top:1cm ; background-color:#62cdff;">
+
+        </div>
+
+        <div id='affichage_video'>	    
+            <br>
+            <h5 style="text-align:center; color:#888888"><b><u>Point de vue de la base mobile :</u></b></h5>
+	    
+            <div class="row my-4">
+                <div class="col d-flex justify-content-center">
+                    <img src="" style="margin:auto;display:block" class="p-1 bg-dark" alt="" id="video" />
+                </div>
+            </div>
+	    
+        </div>
+
+
+        <div id='main2'>
+
+            <!-- Partie sous la caméra (boutons, info et bouton pour passer à l'autre vue) -->
+
+            <!-- Bouttons -->
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+
+                    <br>
+                    <button type="button" onclick="Salon()" class="btn text-white btn-sm" id="salon-btn" style="background-color:#4785e2">Salon</button>
+                    <button type="button" onclick="Chambre()" class="btn text-white btn-sm" id="chambre-btn" style="background-color:#4785e2">Chambre</button>
+
+                    <!-- Cuisine -->
+
+                    <button class="btn text-white dropdown-toggle btn-sm" type="button" id="dropdownMenu2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#4785e2">
+                        Cuisine
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <button class="dropdown-item" type="button" onclick="Plan()" id="plan-btn">Plan de
+                            travail</button>
+                        <button class="dropdown-item" type="button" onclick="Table()"
+                            id="table-btn">Table</button>
+                        <button class="dropdown-item" type="button" onclick="Frigidaire()"
+                            id="frigidaire-btn">Frigidaire</button>
+                    </div>
+
+
+
+                    <button type="button" onclick="Dock()" class="btn text-white btn-sm" id="base-btn" style="background-color:#a7b9c4">Retour à la
+                        base</button>
+
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <br>
+                    <button type="button" onclick="Stop()" class="btn btn-danger btn-lg"
+                        id="stop-btn"><b>STOP</b></button>
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <!-- INFO -->
+
+            <div class="row my-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="alert" style="background-color:#62cdff">
+                        <h5 class="alert-heading"><b>Informations :</b></h5>
+                        <h5>
+                            <style type='text/css'>
+                                body {
+                                    color:#ffffff;
+                                }
+                            </style>
+                            <h5>
+                                <h6 id="Message"></h6>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <!-- Interligne -->
+            <hr style="height:2px ;border-width:0; margin-top:1cm ; margin-bottom:1cm ; background-color:#62cdff;">
+
+            <h5 style="text-align:center; color:#888888"><b><u>Changement de menu :</u></b></h5>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <br>
+                    <button type="button" onclick="Affichage_menu_niryo()" class="btn btn-lg text-white" id="niryo-btn"
+                        style="background-color:#3dc0c0"><b>Menu du bras </b></button>   
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <button type="button" onclick="Affichage_menu_meuble()" class="btn btn-lg text-white" id="meuble-btn"
+                    style="background-color:#6eb2df"><b>Menu du meuble </b></button>        
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <button type="button" onclick="Affichage_cam()" class="btn text-white btn-lg"
+                    id="camera_joystick" style="background-color:#729fad"><b>Commande avec joystick</b></button>     
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <br>
+        </div>
+
+
+        <div id='main_niryo'>
+
+            <!-- Image and text -->
+            <nav class="navbar navbar-dark" style="background-color:#5de2c1">
+                <b>
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/logo_MaD_light.png"
+                        width="80" height="50" class="d-inline-block" alt="">
+                    &nbsp TÉLÉCOMMANDE
+                </b>
+            </nav>
+
+            <!-- Sous menu concernant le contrôle du robot Niryo -->
+	    
+            <br>
+            <h5 style="text-align:center; color:#888888"><b><u>Point de vue du bras :</u></b></h5>
+
+            <div class="row my-4">
+                <div class="col d-flex justify-content-center">
+                    <img src="" style="margin:auto;display:block" class="p-1 bg-dark" alt="" id="video_niryo" />
+                </div>
+            </div>
+	    
+            <!-- Bouttons -->
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+
+                    <br>
+                    <button type="button" onclick="Servir()" class="btn text-white btn-sm" id="servir-btn"
+                        style="background-color:#3dc0c0">Servir</button>
+                    <button type="button" onclick="Pause_bras()" class="btn text-white btn-sm" id="pause-btn"
+                        style="background-color:#808080"><b>Pause</b></button>
+                    <button type="button" onclick="Reprise_bras()" class="btn text-white btn-sm" id="reprise-btn"
+                        style="background-color:#808080"><b>Marche</b></button>
+                    <button type="button" onclick="Ranger()" class="btn text-white btn-sm" id="ranger-btn"
+                        style="background-color:#3dc0c0">Ranger</button>
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <br>
+                    <button type="button" onclick="Arret_action()" class="btn btn-danger btn-lg" id="arret-btn"><b>Arrêt
+                            de l'action</b></button>
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <!-- <div class="line"></div> -->
+            <hr style="height:2px ;border-width:0; margin-top:1cm ; margin-bottom:1cm ; background-color:#31ffff;">
+
+            <!-- Observation -->
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <button type="button" onclick="Observation()" class="btn text-white btn-block" id="observation-btn"
+                        style="background-color:#3dc0c0">Démarrer l'observation</button>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <br>
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/up.png" width="50" height="50" class="d-inline-block" alt="" onclick="Up()" id="up-img" type="button">
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/left.png" width="50" height="50" class="d-inline-block" alt="" onclick="Left()" id="left-img" type="button">
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/logo_grey_transp.png" width="50" height="50" class="d-inline-block" alt="" onclick="Center()" id="center-img" type="button">
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/right.png" width="50" height="50" class="d-inline-block" alt="" onclick="Right()" id="right-img" type="button">
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/down.png" width="50" height="50" class="d-inline-block" alt="" onclick="Down()" id="down-img" type="button">
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+
+            <!-- INFO -->
+
+            <div class="row my-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="alert" style="background-color:#5de2c1">
+                        <h5 class="alert-heading"><b>Informations :</b></h5>
+                        <h5>
+                            <style type='text/css'>
+                                body {
+                                    color: #ffffff;
+                                }
+                            </style>
+                            <h5>
+                                <h6 id="Message_niryo"></h6>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <button type="button" onclick="Affichage_menu()" class="btn text-white btn-lg btn-block"
+                        id="camera_joystick" style="background-color:#3dc0c0">Afficher le menu principal</button>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+        </div>
+
+        <div id='main_meuble'>
+
+            <!-- Image and text -->
+            <nav class="navbar navbar-dark" style="background-color:#86ceff">
+                <b>
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/logo_MaD_light.png"
+                        width="80" height="50" class="d-inline-block" alt="">
+                    &nbsp TÉLÉCOMMANDE
+                </b>
+            </nav>
+
+            <!-- Sous menu concernant le contrôle du meuble -->
+	    
+            <br>
+            <h5 style="text-align:center; color:#888888"><b><u>Commandes du meuble :</u></b></h5>
+	    
+            <!-- Bouttons -->
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <br>
+
+                    <button type="button" onclick="Pause_meuble()" class="btn text-white" id="pause_meuble-btn"
+                        style="background-color:#808080"><b>Pause</b></button>
+                    <button type="button" onclick="Reprise_meuble()" class="btn text-white" id="reprise_meuble-btn"
+                        style="background-color:#808080"><b>Marche</b></button>
+
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <br>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn text-white dropdown-toggle" data-toggle="dropdown" style="background-color:#6eb2df">Convoyeur</button>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item" type="button" onclick="Avancer()" id="avancer-btn">Avancer</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" type="button" onclick="Reculer()"id="reculer-btn">Reculer</a>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn text-white dropdown-toggle" data-toggle="dropdown" style="background-color:#6eb2df">Tiroir</button>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item" type="button" onclick="Sortir()" id="sortir-btn">Sortir</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" type="button" onclick="Rentrer()"id="rentrer-btn">Rentrer</a>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn text-white dropdown-toggle" data-toggle="dropdown" style="background-color:#6eb2df">Élévateur</button>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item" type="button" onclick="Monter()" id="monter-btn">Monter</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" type="button" onclick="Descendre()"id="descendre-btn">Descendre</a>
+                        </div>
+                    </div>
+
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <br>
+                    <button type="button" onclick="Arret_meuble_action()" class="btn btn-danger btn-lg" id="arret_meuble-btn"><b>Arrêt
+                            de l'action</b></button>
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <hr style="height:2px ;border-width:0; margin-top:1cm ; margin-bottom:1cm ; background-color:#6eb2df;">
+
+            <!-- INFO -->
+
+            <div class="row my-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="alert" style="background-color:#86ceff">
+                        <h5 class="alert-heading"><b>Informations :</b></h5>
+                        <h5>
+                            <style type='text/css'>
+                                body {
+                                    color: #ffffff;
+                                }
+                            </style>
+                            <h5>
+                                <h6 id="Message"></h6>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <button type="button" onclick="Affichage_menu()" class="btn text-white btn-lg btn-block"
+                        id="camera_joystick" style="background-color:#6eb2df">Afficher le menu principal</button>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+        </div>
+
+
+        <div id='affichage_joystick'>
+            <!-- On a ici le joystick, une info le concernant, le bouton pour revenir au menu principal -->
+
+            <!-- JOYSTICK -->
+            <div class="row my-4">
+                <div class="col">
+                    <div id="joystick" class="d-flex justify-content-center" style="width: 100px; height: 100px">
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFO -->
+            <div class="row my-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="alert" style="background-color:#7bcae2">
+                        <h5 class="alert-heading"><b>Informations :</b></h5>
+                        <h5>
+                            <style type='text/css'>
+                                body {
+                                    color:#ffffff;
+                                }
+                            </style>
+                            <h5>
+                                <h6> Veuillez ne pas utiliser le joystick lorsque le robot se déplace d'un endroit à un
+                                    autre</h6>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <button type="button" class="btn text-white btn-lg btn-block" onclick="Affichage_menu()"
+                        id="menu_principal" style="background-color:#729fad">Afficher le menu principal</button>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+        <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+        <script src="https://static.robotwebtools.org/keyboardteleopjs/current/keyboardteleop.min.js"></script>
+        <script src="//yoannmoinet.github.io/nipplejs/javascripts/nipplejs.js"></script>
+        <script src="webui.js"></script>
+
+
+    </body>
+
+</html>
