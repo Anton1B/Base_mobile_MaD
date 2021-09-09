@@ -27,6 +27,17 @@
             </nav>
         </div>
 
+        <div id='bandeau_joystick'>
+            <!-- Image and text -->
+            <nav class="navbar navbar-dark bg-dark">
+                <b>
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/logo_MaD_light.png"
+                        width="80" height="50" class="d-inline-block" alt="">
+                    &nbsp TÉLÉCOMMANDE
+                </b>
+            </nav>
+        </div>
+
         <div id='main1'>
 
             <!--Battery Status-->
@@ -35,8 +46,8 @@
                 <h5 style="color:#ebebeb"><b>Niveau de Batterie :</b></h5>
                 <div class="progress">
 
-                    <div id="battery_status" class="progress-bar progress-bar-striped bg-primary progress-bar-animated"
-                    role="progressbar" style="width:50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                    <div id="battery_status" class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar" style="width:50%; background-color:#4493b8" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                     50%</div>
 
                 </div>
@@ -58,7 +69,7 @@
             </div>
 
             <!-- Interligne -->
-            <hr style="height:2px ;border-width:0; margin-top:1cm ; background-color:#275394;">
+            <hr style="height:2px ;border-width:0; margin-top:1cm ; background-color:#4493b8;">
 
         </div>
 
@@ -85,17 +96,13 @@
                 <div class="col-md-0" style="margin:auto;display:block">
 
                     <br>
-                    <button type="button" onclick="Salon()" class="btn btn-primary"
-                        id="salon-btn">Salon</button>
-                    <button type="button" onclick="Chambre()" class="btn btn-primary"
-                        id="chambre-btn">Chambre</button>
-
-
+                    <button type="button" onclick="Salon()" class="btn text-white btn-sm" id="salon-btn" style="background-color:#4785e2">Salon</button>
+                    <button type="button" onclick="Chambre()" class="btn text-white btn-sm" id="chambre-btn" style="background-color:#4785e2">Chambre</button>
 
                     <!-- Cuisine -->
 
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn text-white dropdown-toggle btn-sm" type="button" id="dropdownMenu2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#4785e2">
                         Cuisine
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -109,7 +116,7 @@
 
 
 
-                    <button type="button" onclick="Dock()" class="btn btn-secondary" id="base-btn">Retour à la
+                    <button type="button" onclick="Dock()" class="btn text-white btn-sm" id="base-btn" style="background-color:#a7b9c4">Retour à la
                         base</button>
 
                     <br>
@@ -139,7 +146,7 @@
                         <h5>
                             <style type='text/css'>
                                 body {
-                                    color: #ebebeb;
+                                    color:#ebebeb;
                                 }
                             </style>
                             <h5>
@@ -150,7 +157,7 @@
             </div>
 
             <!-- Interligne -->
-            <hr style="height:2px ;border-width:0; margin-top:1cm ; margin-bottom:1cm ; background-color:#275394;">
+            <hr style="height:2px ;border-width:0; margin-top:1cm ; margin-bottom:1cm ; background-color:#4493b8;">
 
             <h5 style="text-align:center; color:#ebebeb"><b><u>Changement de menu :</u></b></h5>
 
@@ -159,11 +166,26 @@
                 <div class="col-md-0" style="margin:auto;display:block">
                     <br>
                     <button type="button" onclick="Affichage_menu_niryo()" class="btn btn-lg text-white" id="niryo-btn"
-                        style="background-color:#3dc0c0"><b>Menu du bras </b></button>
+                        style="background-color:#3dc0c0"><b>Menu du bras </b></button>   
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
                     <button type="button" onclick="Affichage_menu_meuble()" class="btn btn-lg text-white" id="meuble-btn"
-                    style="background-color:#6eb2df"><b>Menu du meuble </b></button>   
+                    style="background-color:#6eb2df"><b>Menu du meuble </b></button>        
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
                     <button type="button" onclick="Affichage_cam()" class="btn text-white btn-lg"
-                    id="camera_joystick" style="background-color:#275394"><b>Commande avec joystick</b></button>     
+                    id="camera_joystick" style="background-color:#729fad"><b>Commande avec joystick</b></button>     
                     <br>
                 </div>
                 <div class="col-md-0"></div>
@@ -176,7 +198,7 @@
         <div id='main_niryo'>
 
             <!-- Image and text -->
-            <nav class="navbar navbar-dark" style="background-color:#5de2c1">
+            <nav class="navbar navbar-dark bg-dark">
                 <b>
                     <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/logo_MaD_light.png"
                         width="80" height="50" class="d-inline-block" alt="">
@@ -229,6 +251,45 @@
             <!-- <div class="line"></div> -->
             <hr style="height:2px ;border-width:0; margin-top:1cm ; margin-bottom:1cm ; background-color:#31ffff;">
 
+            <!-- Observation -->
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <button type="button" onclick="Observation()" class="btn text-white btn-block" id="observation-btn"
+                        style="background-color:#3dc0c0">Démarrer l'observation</button>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <br>
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/up.png" width="50" height="50" class="d-inline-block" alt="" onclick="Up()" id="up-img" type="button">
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/left.png" width="50" height="50" class="d-inline-block" alt="" onclick="Left()" id="left-img" type="button">
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/logo_grey_transp.png" width="50" height="50" class="d-inline-block" alt="" onclick="Center()" id="center-img" type="button">
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/right.png" width="50" height="50" class="d-inline-block" alt="" onclick="Right()" id="right-img" type="button">
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-0"></div>
+                <div class="col-md-0" style="margin:auto;display:block">
+                    <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/down.png" width="50" height="50" class="d-inline-block" alt="" onclick="Down()" id="down-img" type="button">
+                    <br>
+                </div>
+                <div class="col-md-0"></div>
+            </div>
+
+
             <!-- INFO -->
 
             <div class="row my-4">
@@ -243,7 +304,7 @@
                                 }
                             </style>
                             <h5>
-                                <h6 id="Message"></h6>
+                                <h6 id="Message_niryo"></h6>
                     </div>
                 </div>
                 <div class="col-md-2"></div>
@@ -262,7 +323,7 @@
         <div id='main_meuble'>
 
             <!-- Image and text -->
-            <nav class="navbar navbar-dark" style="background-color:#6eb2df">
+            <nav class="navbar navbar-dark bg-dark">
                 <b>
                     <img src="https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/pictures/logo_MaD_light.png"
                         width="80" height="50" class="d-inline-block" alt="">
@@ -270,29 +331,16 @@
                 </b>
             </nav>
 
-            <!-- Sous menu concernant le contrôle du robot Niryo -->
+            <!-- Sous menu concernant le contrôle du meuble -->
 	    
             <br>
-            <h5 style="text-align:center; color:#ebebeb"><b><u>Point de vue du bras :</u></b></h5>
-
-            <div class="row my-4">
-                <div class="col d-flex justify-content-center">
-                    <img src="" style="margin:auto;display:block" class="p-1 bg-dark" alt="" id="video_niryo" />
-                </div>
-            </div>
+            <h5 style="text-align:center; color:#ebebeb"><b><u>Commandes du meuble :</u></b></h5>
 	    
             <!-- Bouttons -->
             <div class="row my-2">
                 <div class="col-md-0"></div>
                 <div class="col-md-0" style="margin:auto;display:block">
                     <br>
-                    
-                    <!-- <button class="btn text-white dropdown-toggle" type="button" id="dropdownMenu2"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#6eb2df">Convoyeur</button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button" onclick="Avancer()" id="avancer-btn">Avancer</button>
-                        <button class="dropdown-item" type="button" onclick="Reculer()"id="reculer-btn">Reculer</button>
-                    </div> -->
 
                     <button type="button" onclick="Pause_meuble()" class="btn text-white" id="pause_meuble-btn"
                         style="background-color:#808080"><b>Pause</b></button>
@@ -310,7 +358,7 @@
                     <br>
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color:#6eb2df">Convoyeur</button>
+                        <button type="button" class="btn text-white dropdown-toggle" data-toggle="dropdown" style="background-color:#6eb2df">Convoyeur</button>
                         <div class="dropdown-menu">
                             <a href="#" class="dropdown-item" type="button" onclick="Avancer()" id="avancer-btn">Avancer</a>
                             <div class="dropdown-divider"></div>
@@ -319,7 +367,7 @@
                     </div>
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color:#6eb2df">Tiroir</button>
+                        <button type="button" class="btn text-white dropdown-toggle" data-toggle="dropdown" style="background-color:#6eb2df">Tiroir</button>
                         <div class="dropdown-menu">
                             <a href="#" class="dropdown-item" type="button" onclick="Sortir()" id="sortir-btn">Sortir</a>
                             <div class="dropdown-divider"></div>
@@ -328,7 +376,7 @@
                     </div>
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color:#6eb2df">Élévateur</button>
+                        <button type="button" class="btn text-white dropdown-toggle" data-toggle="dropdown" style="background-color:#6eb2df">Élévateur</button>
                         <div class="dropdown-menu">
                             <a href="#" class="dropdown-item" type="button" onclick="Monter()" id="monter-btn">Monter</a>
                             <div class="dropdown-divider"></div>
@@ -341,37 +389,6 @@
                 <div class="col-md-0"></div>
             </div>
 
-
-            <!-- <div class="row my-2">
-                <div class="col-md-0"></div>
-                <div class="col-md-0" style="margin:auto;display:block">
-                    <br>
-
-                    <button type="button" onclick="Pause_meuble()" class="btn text-white" id="pause_meuble-btn"
-                        style="background-color:#808080"><b>Pause</b></button>
-                    <button type="button" onclick="Reprise_meuble()" class="btn text-white" id="reprise_meuble-btn"
-                        style="background-color:#808080"><b>Marche</b></button>
-
-                    <br>
-                </div>
-                <div class="col-md-0"></div>
-            </div>
-
-            <div class="row my-2">
-                <div class="col-md-0"></div>
-                <div class="col-md-0" style="margin:auto;display:block">
-                    <br>
-                    <button class="btn text-white dropdown-toggle" type="button" id="dropdownMenu_tiroir"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#6eb2df">Tiroir</button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu_tiroir">
-                        <button class="dropdown-item" type="button" onclick="Sortir()" id="sortir-btn">Sortir</button>
-                        <button class="dropdown-item" type="button" onclick="Rentrer()"id="rentrer-btn">Rentrer</button>
-                    </div>
-                    <br>
-                </div>
-                <div class="col-md-0"></div>
-            </div> -->
-
             <div class="row my-2">
                 <div class="col-md-0"></div>
                 <div class="col-md-0" style="margin:auto;display:block">
@@ -383,8 +400,7 @@
                 <div class="col-md-0"></div>
             </div>
 
-            <!-- <div class="line"></div> -->
-            <hr style="height:2px ;border-width:0; margin-top:1cm ; margin-bottom:1cm ; background-color:#44aaee;">
+            <hr style="height:2px ;border-width:0; margin-top:1cm ; margin-bottom:1cm ; background-color:#6eb2df;">
 
             <!-- INFO -->
 
@@ -396,7 +412,7 @@
                         <h5>
                             <style type='text/css'>
                                 body {
-                                    color: #ebebeb;
+                                    color:#ebebeb;
                                 }
                             </style>
                             <h5>
@@ -437,7 +453,7 @@
                         <h5>
                             <style type='text/css'>
                                 body {
-                                    color: #ebebeb;
+                                    color:#ebebeb;
                                 }
                             </style>
                             <h5>
@@ -452,7 +468,7 @@
                 <div class="col-md-0"></div>
                 <div class="col-md-0" style="margin:auto;display:block">
                     <button type="button" class="btn text-white btn-lg btn-block" onclick="Affichage_menu()"
-                        id="menu_principal" style="background-color:#275394">Afficher le menu principal</button>
+                        id="menu_principal" style="background-color:#729fad">Afficher le menu principal</button>
                 </div>
                 <div class="col-md-0"></div>
             </div>

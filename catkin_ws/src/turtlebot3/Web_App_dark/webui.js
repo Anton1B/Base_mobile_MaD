@@ -24,6 +24,7 @@ var ros = new ROSLIB.Ros({
 document.getElementById('affichage_joystick').style.display = 'block' ? 'none' : 'block';
 document.getElementById('main_niryo').style.display = 'block' ? 'none' : 'block';
 document.getElementById('main_meuble').style.display = 'block' ? 'none' : 'block';
+document.getElementById('bandeau_joystick').style.display = 'block' ? 'none' : 'block';
 
 // fonction qui va servir pour la publication de la vitesse des roues lors de l'usage du joystick
 function moveAction(linear, angular) {
@@ -214,6 +215,52 @@ function Arret_action() {
     console.log(my_message.data);
 }
 
+function Observation() {
+    document.getElementById("observation-btn");
+    var music = new Audio('https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/sounds/observation.wav');
+    music.play();
+    my_message.data = 15;
+    talker.publish(my_message);
+    console.log(my_message.data);
+}
+
+function Center() {
+    document.getElementById("center-img");
+    var music = new Audio('https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/sounds/pos_init.wav');
+    music.play();
+    my_message.data = 99;
+    talker.publish(my_message);
+    console.log(my_message.data);
+}
+
+function Up() {
+    document.getElementById("up-img");
+    my_message.data = 100;
+    talker.publish(my_message);
+    console.log(my_message.data);
+}
+
+function Left() {
+    document.getElementById("left-img");
+    my_message.data = 101;
+    talker.publish(my_message);
+    console.log(my_message.data);
+}
+
+function Right() {
+    document.getElementById("right-img");
+    my_message.data = 102;
+    talker.publish(my_message);
+    console.log(my_message.data);
+}
+
+function Down() {
+    document.getElementById("down-img");
+    my_message.data = 103;
+    talker.publish(my_message);
+    console.log(my_message.data);
+}
+
 // MEUBLE INTELLIGENT
 //----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -221,7 +268,7 @@ function Pause_meuble() {
     document.getElementById("arret_meuble-btn");
     var music = new Audio('https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/sounds/pause.wav');
     music.play();
-    my_message.data = 15;
+    my_message.data = 16;
     talker.publish(my_message);
     console.log(my_message.data);
 }
@@ -230,7 +277,7 @@ function Reprise_meuble() {
     document.getElementById("marche_meuble-btn");
     var music = new Audio('https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/sounds/reprise.wav');
     music.play();
-    my_message.data = 16;
+    my_message.data = 17;
     talker.publish(my_message);
     console.log(my_message.data);
 }
@@ -239,7 +286,7 @@ function Avancer() {
     document.getElementById("avancer-btn");
     var music = new Audio('https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/sounds/avancer.wav');
     music.play();
-    my_message.data = 17;
+    my_message.data = 18;
     talker.publish(my_message);
     console.log(my_message.data);
 }
@@ -248,7 +295,7 @@ function Reculer() {
     document.getElementById("reculer-btn");
     var music = new Audio('https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/sounds/reculer.wav');
     music.play();
-    my_message.data = 18;
+    my_message.data = 19;
     talker.publish(my_message);
     console.log(my_message.data);
 }
@@ -257,7 +304,7 @@ function Sortir() {
     document.getElementById("sortir-btn");
     var music = new Audio('https://raw.githubusercontent.com/Anton1B/Base_mobile_MaD/main/src_web/sounds/sortir.wav');
     music.play();
-    my_message.data = 19;
+    my_message.data = 20;
     talker.publish(my_message);
     console.log(my_message.data);
 }
@@ -420,6 +467,7 @@ function Affichage_menu() {
     document.getElementById('affichage_joystick').style.display = 'block' ? 'none' : 'block';
     document.getElementById('main_niryo').style.display = 'block' ? 'none' : 'block';
     document.getElementById('main_meuble').style.display = 'block' ? 'none' : 'block';
+    document.getElementById('bandeau_joystick').style.display = 'block' ? 'none' : 'block';
 }
 
 function Affichage_menu_niryo() {
@@ -453,14 +501,15 @@ function Affichage_menu_meuble() {
 function Affichage_cam() {
     // On affiche la partie camera et joystick et on bloque le reste :
     document.getElementById("camera_joystick");
-    document.getElementById('bandeau').style.display = 'none' ? 'block' : 'none';
+    document.getElementById("bandeau_joystick").style.display = 'none' ? 'block' : 'none';
     document.getElementById('affichage_video').style.display = 'none' ? 'block' : 'none';
     document.getElementById('affichage_joystick').style.display = 'none' ? 'block' : 'none';
-
 
     document.getElementById('main1').style.display = 'block' ? 'none' : 'block';
     document.getElementById('main2').style.display = 'block' ? 'none' : 'block';
     document.getElementById('main_niryo').style.display = 'block' ? 'none' : 'block';
+    document.getElementById('bandeau').style.display = 'block' ? 'none' : 'block';
+
 
     // Création du joystick
     function createJoystick() {
